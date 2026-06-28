@@ -1,0 +1,78 @@
+// Shown only when the products table is empty or Supabase isn't
+// configured yet, so the storefront never looks broken on first run.
+// Add real products from the admin panel once Supabase is connected —
+// this list is not read from anywhere else.
+export const SAMPLE_PRODUCTS = [
+  {
+    id: "sample-1",
+    name: "Customized Photo Rakhi",
+    category: "rakhis",
+    price: 149,
+    description: "A classic rakhi thread with a printed photo charm.",
+    image_url: null,
+    is_active: true,
+  },
+  {
+    id: "sample-2",
+    name: "Kids' Cartoon Rakhi Set",
+    category: "rakhis",
+    price: 199,
+    description: "Set of 2 cartoon rakhis for younger brothers.",
+    image_url: null,
+    is_active: true,
+  },
+  {
+    id: "sample-3",
+    name: "Name & Photo Phone Cover",
+    category: "phone-covers",
+    price: 299,
+    description: "Matte finish cover printed with your photo and name.",
+    image_url: null,
+    is_active: true,
+  },
+  {
+    id: "sample-4",
+    name: "Couple Phone Cover Set",
+    category: "phone-covers",
+    price: 499,
+    description: "Matching set for two phones, any photos you send.",
+    image_url: null,
+    is_active: true,
+  },
+  {
+    id: "sample-5",
+    name: "Wooden Photo Keychain",
+    category: "keychains",
+    price: 99,
+    description: "Laser-printed wooden keychain, your photo or initials.",
+    image_url: null,
+    is_active: true,
+  },
+  {
+    id: "sample-6",
+    name: "Acrylic Name Keychain",
+    category: "keychains",
+    price: 89,
+    description: "Clear acrylic keychain with a custom printed name.",
+    image_url: null,
+    is_active: true,
+  },
+  {
+    id: "sample-7",
+    name: "Laser-Engraved Wooden Frame",
+    category: "laser-items",
+    price: 599,
+    description: "Engraved wooden photo frame — names, dates, quotes.",
+    image_url: null,
+    is_active: true,
+  },
+  {
+    id: "sample-8",
+    name: "Engraved Wallet Card",
+    category: "laser-items",
+    price: 349,
+    description: "Slim metal card laser-engraved with a message.",
+    image_url: null,
+    is_active: true,
+  },
+];

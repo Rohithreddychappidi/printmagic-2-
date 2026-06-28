@@ -1,0 +1,183 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+html {
+  scroll-behavior: smooth;
+}
+
+body {
+  background-color: #ffffff;
+  color: #171414;
+  /* Smoother momentum scrolling on iOS Safari */
+  -webkit-overflow-scrolling: touch;
+}
+
+/* ---------- Glassmorphism ---------- */
+/* Blur radius kept moderate (not 16-20px+) and each glass surface is
+   promoted to its own compositor layer — backdrop-filter is expensive
+   to recompute every scroll frame, especially on a sticky/fixed element,
+   and this combination is the #1 cause of scroll jank on glassy sites. */
+
+.glass {
+  background: rgba(255, 255, 255, 0.55);
+  backdrop-filter: blur(10px);
+  -webkit-backdrop-filter: blur(10px);
+  border: 1px solid rgba(255, 255, 255, 0.6);
+  transform: translateZ(0);
+  will-change: transform;
+}
+
+.glass-strong {
+  background: rgba(255, 255, 255, 0.78);
+  backdrop-filter: blur(13px);
+  -webkit-backdrop-filter: blur(13px);
+  border: 1px solid rgba(255, 255, 255, 0.8);
+  transform: translateZ(0);
+  will-change: transform;
+}
+
+/* ---------- Drifting prism blobs (hero background) ---------- */
+
+.prism-blob {
+  position: absolute;
+  border-radius: 9999px;
+  filter: blur(60px);
+  opacity: 0.55;
+  will-change: transform;
+}
+
+@keyframes drift-a {
+  0%, 100% { transform: translate(0, 0) scale(1); }
+  50% { transform: translate(30px, -20px) scale(1.08); }
+}
+
+@keyframes drift-b {
+  0%, 100% { transform: translate(0, 0) scale(1); }
+  50% { transform: translate(-24px, 24px) scale(1.05); }
+}
+
+.animate-drift-a {
+  animation: drift-a 14s ease-in-out infinite;
+}
+
+.animate-drift-b {
+  animation: drift-b 17s ease-in-out infinite;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .animate-drift-a,
+  .animate-drift-b {
+    animation: none;
+  }
+}
+
+/* ---------- Gallery: fade-up reveal + hover zoom ---------- */
+/* Tiles start slightly lowered and transparent, then animate in once
+   they scroll into view (class toggled via IntersectionObserver in
+   Gallery.js) — a single transition per tile, not a continuous one,
+   so it's cheap to run. */
+
+.gallery-tile {
+  opacity: 0;
+  transform: translateY(28px) scale(0.98);
+  transition: opacity 0.7s cubic-bezier(0.22, 1, 0.36, 1),
+    transform 0.7s cubic-bezier(0.22, 1, 0.36, 1);
+}
+
+.gallery-tile.is-visible {
+  opacity: 1;
+  transform: translateY(0) scale(1);
+}
+
+.gallery-tile .gallery-tile-img {
+  transition: transform 0.6s cubic-bezier(0.22, 1, 0.36, 1);
+}
+
+.gallery-tile:hover .gallery-tile-img {
+  transform: scale(1.08);
+}
+
+.gallery-tile .gallery-tile-caption {
+  transform: translateY(8px);
+  opacity: 0.85;
+  transition: transform 0.4s ease, opacity 0.4s ease;
+}
+
+.gallery-tile:hover .gallery-tile-caption {
+  transform: translateY(0);
+  opacity: 1;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .gallery-tile {
+    opacity: 1;
+    transform: none;
+    transition: none;
+  }
+  .gallery-tile .gallery-tile-img,
+  .gallery-tile .gallery-tile-caption {
+    transition: none;
+  }
+}
+
+/* ---------- Ticket-stub product card ---------- */
+/* A perforated divider between the image and the price/CTA row,
+   plus two notches on the left/right edges, like a torn raffle
+   ticket — a small nod to "Print" in PrintMagic. */
+
+.ticket {
+  position: relative;
+}
+
+.ticket::before,
+.ticket::after {
+  content: "";
+  position: absolute;
+  width: 16px;
+  height: 16px;
+  background: #ffffff;
+  border-radius: 9999px;
+  top: var(--notch-top, 62%);
+  z-index: 2;
+}
+
+.ticket::before {
+  left: -8px;
+  box-shadow: inset -2px 0 4px rgba(0, 0, 0, 0.04);
+}
+
+.ticket::after {
+  right: -8px;
+  box-shadow: inset 2px 0 4px rgba(0, 0, 0, 0.04);
+}
+
+.ticket-perforation {
+  border-top: 2px dashed rgba(23, 20, 20, 0.15);
+}
+
+/* ---------- Scrollbar (subtle, brand-tinted) ---------- */
+
+::-webkit-scrollbar {
+  width: 10px;
+  height: 10px;
+}
+
+::-webkit-scrollbar-thumb {
+  background: linear-gradient(180deg, #d6177c, #00a99a);
+  border-radius: 9999px;
+}
+
+::-webkit-scrollbar-track {
+  background: transparent;
+}
+
+/* Visible keyboard focus everywhere */
+a:focus-visible,
+button:focus-visible,
+input:focus-visible,
+textarea:focus-visible,
+select:focus-visible {
+  outline: 2px solid #d6177c;
+  outline-offset: 2px;
+}
